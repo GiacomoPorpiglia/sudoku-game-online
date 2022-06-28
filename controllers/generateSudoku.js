@@ -281,69 +281,6 @@ const getSudokuGrid = (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const coordinatesOfPos = (pos, size) => {
-    return [Math.floor(pos/Math.pow(size, 2)), pos % Math.pow(size, 2)] // [row, col]
-}
-
-const numberIsValid = (pos, num, grid, size) => {
-    let [row, col] = coordinatesOfPos(pos, size)
-    // console.log(col, row);
-    for(let i = 0; i < Math.pow(size, 2); i++) {
-        
-        if(i != col && grid[row][i] == num) {
-            return false
-        } 
-        if(i!= row && grid[i][col] == num) {
-            return false
-        }
-    }
-
-    let squareCol = Math.floor(col / size) * size
-    let squareRow = Math.floor(row / size) * size
-    for(let i = 0; i < size; i++) {
-        for(let j = 0; j < size; j++) {
-            
-            let tempRow = (squareRow) + i
-            let tempCol = (squareCol) + j
-            if(tempRow != row || tempCol != col) {
-                if(grid[tempRow][tempCol] == num) {
-                    return false
-                }
-            }
-        }
-    }
-    // console.log(num,"is valid at position", [row, col] );
-
-
-    return true
-}
-
-
-
 module.exports = {
     getSudokuGrid
 }
