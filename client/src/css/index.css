@@ -39,6 +39,8 @@ body {
   background-color: var(--bg-body);
   overflow-x: hidden;
   user-select: none;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 }
 
 input {
