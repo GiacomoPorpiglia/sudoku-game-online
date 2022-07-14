@@ -54,14 +54,31 @@ const Game = () => {
         }
 
         if(sudokuIsCompleted()) {
-            document.querySelector("#game-screen").classList.remove('active')
-            document.querySelector("#result-screen").classList.add('active')
+
+            if(sudokuIsRight()) {
+                document.querySelector("#game-screen").classList.remove('active')
+                document.querySelector("#result-screen").classList.add('active')
+            }
+            else {
+                document.querySelector("#game-screen").classList.remove('active')
+                document.querySelector("#error-screen").classList.add('active')
+            }
+            
         }
 
     }
 
 
     const sudokuIsCompleted = () => {
+        for(let i = 0; i < 9; i++) {
+            for(let j = 0; j < 9; j++) {
+                if(sudoku?.gridToBeFilled[i][j] == 0) return false
+            }
+        }
+        return true
+    }
+
+    const sudokuIsRight = () => {
         for(let i = 0; i < 9; i++) {
             for(let j = 0; j < 9; j++) {
                 if(sudoku?.gridToBeFilled[i][j] != sudoku?.grid[i][j]) return false
@@ -94,6 +111,11 @@ const Game = () => {
     }
   }, [selectedCellIdx])
 
+
+    const keepTrying = () => {
+        document.querySelector('#error-screen').classList.remove('active')
+        document.querySelector('#game-screen').classList.add('active')
+    }
 
 
     const newGame = () => {
@@ -149,6 +171,12 @@ const Game = () => {
 
             <div className="result-screen" id="result-screen">
                 <div className="congrate">Sudoku Completed!</div>
+                <div className="btn btn-blue" id="btn-new-game-2" onClick={() => newGame()}>New game</div>
+            </div>
+
+            <div className="error-screen" id="error-screen">
+                <div className="congrate">Your solution has some errors!</div>
+                <div className="btn btn-blue" id="btn-new-game-2" onClick={() => keepTrying()}>Keep trying</div>
                 <div className="btn btn-blue" id="btn-new-game-2" onClick={() => newGame()}>New game</div>
             </div>
 
